@@ -1,14 +1,15 @@
-# Search
-Short description and motivation.
+# Locomotive Search
 
-## Usage
-How to use my plugin.
+Locomotive Search is an add-on for Locomotive Engine enhancing it by indexing the content of any site.
+
+For now, only [Algolia](https://www.algolia.com) is supported.
 
 ## Installation
-Add this line to your application's Gemfile:
+
+Add this line to your Rails app's Gemfile powering Locomotive Engine.
 
 ```ruby
-gem 'search'
+gem 'locomotivecms_search'
 ```
 
 And then execute:
@@ -16,13 +17,37 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install search
+## Available backends
+
+### Algolia
+
+Each Locomotive site has to set the credentials required to access the Algolia API. This can be done by adding a new metafield namespace named `algolia` in the Wagon source of the site.
+
+In the `config/metafields_schema.yaml` file, add the following lines:
+
+```yaml
+algolia:
+  label: Algolia settings
+  fields:
+    application_id:
+      type: string
+    api_key:
+      type: string
 ```
 
-## Contributing
-Contribution directions go here.
+Then, deploy your site and open the back-office of your Locomotive site. Go to the "Settings" section and fill in the `application_id` and `api_key` fields within the Algolia tab.
+
+## How to contribute
+
+Locomotive is an open source project, we encourage contributions. If you have found a bug and want to contribute a fix, or have a new feature you would like to add, follow the steps below to get your patch into the project:
+
+- Install ruby, mongoDB
+- Clone the project <code>git clone git@github.com:locomotivecms/search.git</code>
+- Start mongodb if it is not already running
+- Run the tests <code>bundle exec rspec</code>
+- Write your failing tests
+- Make the tests pass
+- [Create a GitHub pull request](http://help.github.com/send-pull-requests)
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
