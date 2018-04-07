@@ -1,0 +1,6 @@
+.bundle/
+.DS_Store
+log/*.log
+pkg/
+spec/dummy/log/*.log
+spec/dummy/tmp/
