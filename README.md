@@ -17,6 +17,16 @@ And then execute:
 $ bundle
 ```
 
+Open your `config/application.rb` file of your Rails app and assign a backend like this:
+
+```ruby
+class MyApplication < Rails::Application
+  ...
+  config.x.locomotive_search_backend = :algolia
+  ...
+end
+```
+
 ## Available backends
 
 ### Algolia
@@ -33,9 +43,14 @@ algolia:
       type: string
     api_key:
       type: string
+    reset:
+      type: boolean
+      hint: 'If switched on and after pressed the save button, re-index the content of the site '
 ```
 
 Then, deploy your site and open the back-office of your Locomotive site. Go to the "Settings" section and fill in the `application_id` and `api_key` fields within the Algolia tab.
+
+If you want to force the re-indexing all of the content of the site, toggle on the `reset` field and save the site. This procedure will start by deleting all the existing Algolia indices.
 
 ## How to contribute
 
@@ -44,6 +59,8 @@ Locomotive is an open source project, we encourage contributions. If you have fo
 - Install ruby, mongoDB
 - Clone the project <code>git clone git@github.com:locomotivecms/search.git</code>
 - Start mongodb if it is not already running
+- Create an Algolia account
+- Set the following env variables based on your Algolia account: ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY
 - Run the tests <code>bundle exec rspec</code>
 - Write your failing tests
 - Make the tests pass

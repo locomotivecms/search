@@ -22,8 +22,8 @@ module Locomotive
         # - object: in order to perform a local search among the pages or a content type
         #
         # Names of the indices:
-        # - global: locomotive-<Rails env>-<site id>-<locale>
-        # - object: locomotive-<Rails env>-<site id>-<locale>-<type: page or a content type>
+        # - global: locomotive-<Rails env>-<site handle>-<locale>
+        # - object: locomotive-<Rails env>-<site handle>-<locale>-<type: page or a content type>
         #
         def save_object(type: nil, object_id: nil, title: nil, content: nil, visible: true, data: {})
           object = {
@@ -44,18 +44,47 @@ module Locomotive
           global_index.delete_object(object_id)
         end
 
-        def enabled?
+        def delete_all_indices
+          client.list_indexes['items'].each do |index|
+            name = index['name']
+
+            next unless name =~ /^#{self.base_index_name}-/
+
+            self.client.delete_index(name)
+          end
+        end
+
+        def valid?
           @client.present?
         end
 
         def global_index
-          name = ['locomotive', Rails.env, self.site._id, self.locale].join('-')
+          name = [base_index_name, self.locale].join('-')
           ::Algolia::Index.new(name, self.client)
         end
 
         def object_index(type)
-          name = ['locomotive', Rails.env, self.site._id, self.locale, type].join('-')
+          name = [base_index_name, self.locale, type].join('-')
           ::Algolia::Index.new(name, self.client)
+        end
+
+        def base_index_name
+          ['locomotive', Rails.env, self.site.handle].join('-')
+        end
+
+        def self.enabled_for?(site)
+          site.metafields['algolia'].present? &&
+          site.metafields['algolia']['application_id'].present? &&
+          site.metafields['algolia']['api_key'].present?
+        end
+
+        def self.reset_for?(site)
+          enabled_for?(site) &&
+          [1, '1', true].include?(site.metafields['algolia']['reset'])
+        end
+
+        def self.reset_done!(site)
+          site.metafields['algolia']['reset'] = false
         end
 
       end

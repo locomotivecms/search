@@ -62,4 +62,41 @@ FactoryBot.define do
     disabled false
   end
 
+  factory :content_type, class: Locomotive::ContentType do
+
+    name 'My articles'
+    slug 'articles'
+    description 'The list of my articles'
+    site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
+
+    after(:build) do |content_type, _|
+      content_type.entries_custom_fields.build label: 'Title', type: 'string'
+      content_type.entries_custom_fields.build label: 'Short Description', type: 'text'
+      content_type.entries_custom_fields.build label: 'Description', type: 'text'
+      content_type.entries_custom_fields.build label: 'Visible ?', type: 'boolean', name: 'visible'
+      content_type.entries_custom_fields.build label: 'File', type: 'file'
+      content_type.entries_custom_fields.build label: 'Published at', type: 'date'
+      content_type.valid?
+      content_type.send(:set_label_field)
+    end
+
+    trait :indexed do
+      site { create(:site, :algolia) }
+    end
+
+  end
+
+  factory :content_entry, class: Locomotive::ContentEntry do
+
+    trait :with_attributes do
+      _slug             'my-first-article'
+      title             'My first article'
+      short_description '<span>Short description here</span>'
+      description       "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>"
+      visible           true
+      published_at      Date.parse('2015/09/26')
+    end
+
+  end
+
 end

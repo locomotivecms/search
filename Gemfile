@@ -8,7 +8,7 @@ gemspec
 
 gem 'rails',                  '~> 5.1.5'
 gem 'passenger',              '~> 5.2.1'
-gem 'mongoid',                '~> 6.3.0'
+gem 'mongoid',                '~> 6.4.0'
 gem 'devise',                 '~> 4.4.3'
 gem 'sass-rails',             '~> 5.0'
 gem 'uglifier',               '>= 1.3.0'
@@ -17,6 +17,8 @@ gem 'turbolinks',             '~> 5'
 gem 'bootsnap',               '>= 1.1.0', require: false
 gem 'sidekiq',                '~> 5.1.3'
 
+
+gem 'custom_fields', path: '../custom_fields' # for Developers
 gem 'locomotivecms', path: '../engine'
 
 group :development, :test do
@@ -26,4 +28,4 @@ group :development, :test do
 end
 
 # To use a debugger
-# gem 'byebug', group: [:development, :test]
+gem 'byebug', group: [:development, :test]

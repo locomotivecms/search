@@ -36,12 +36,12 @@ describe Locomotive::Search::BackendFactory do
 
   class SimpleBackend
     def initialize(site, locale); true; end
-    def enabled?; true; end
+    def valid?; true; end
   end
 
   class DisabledBackend
     def initialize(site, locale); true; end
-    def enabled?; false; end
+    def valid?; false; end
   end
 
 end

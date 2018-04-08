@@ -4,7 +4,7 @@ describe Locomotive::Search::SearchIndexPageJob do
 
   describe '#perform' do
 
-    let(:backend)   { FooBackend.new }
+    let(:backend)   { FooPageBackend.new }
     let(:page)      { create(:page) }
     let(:locale)    { 'en' }
 
@@ -26,7 +26,7 @@ describe Locomotive::Search::SearchIndexPageJob do
 
   end
 
-  class FooBackend
+  class FooPageBackend
     def save_object(type: nil, object_id: nil, title: nil, content: nil, visible: true, data: {})
       true
     end

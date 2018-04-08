@@ -19,8 +19,32 @@ module Locomotive
       end
 
       def create(site, locale)
-        backend = klass.new(site, locale)
-        backend.enabled? ? backend : nil
+        return nil unless self.setup?
+
+        backend = self.klass.new(site, locale)
+        backend.valid? ? backend : nil
+      end
+
+      def name
+        return nil unless self.setup?
+
+        self.klass.name.demodulize.underscore
+      end
+
+      def setup?
+        self.klass.present?
+      end
+
+      def enabled_for?(site)
+        self.setup? && self.klass.enabled_for?(site)
+      end
+
+      def reset_for?(site)
+        self.setup? && self.klass.reset_for?(site)
+      end
+
+      def reset_done!(site)
+        self.setup? && self.klass.reset_done!(site)
       end
 
     end
