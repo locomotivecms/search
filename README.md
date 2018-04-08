@@ -27,6 +27,10 @@ class MyApplication < Rails::Application
 end
 ```
 
+For a smooth user experience, any modification to a page or a content entry triggers the indexing of the related content. Behind the scene, we use Rails ActiveJob in order to process it asynchronously. Check out the [ActiveJob documentation](http://guides.rubyonrails.org/active_job_basics.html) to set it up.
+
+However, if you don't mind about the performance (or for testint purpose), you can "disable" ActiveJob by adding `config.active_job.queue_adapter = :inline` to your application.rb file.
+
 ## Available backends
 
 ### Algolia
