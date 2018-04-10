@@ -6,7 +6,7 @@ module Locomotive
 
         def content_to_index
           self.editable_elements.where(_type: 'Locomotive::EditableText').map do |element|
-            ::ActionController::Base.helpers.strip_tags(element.content)
+            sanitize_search_content(element.content)
           end.join(' ')
         end
 

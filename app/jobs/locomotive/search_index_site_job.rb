@@ -6,7 +6,7 @@ module Locomotive
       site = Locomotive::Site.find(site_id)
 
       # first remove all the indices for this site
-      search_backend(site, nil)&.delete_all_indices
+      search_backend(site, nil)&.clear_all_indices
 
       # index the content in each locale
       site.each_locale do |locale|

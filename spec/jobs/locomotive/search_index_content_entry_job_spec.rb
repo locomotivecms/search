@@ -6,7 +6,7 @@ describe Locomotive::Search::SearchIndexContentEntryJob do
 
     let(:backend)       { FooEntryBackend.new }
     let(:content_type)  { create(:content_type, :indexed) }
-    let(:entry)         { content_type.entries.create(attributes_for(:content_entry, :with_attributes)) }
+    let(:entry)         { content_type.entries.create(attributes_for(:content_entry, :article_attributes)) }
     let(:locale)        { 'en' }
 
     before { allow(job).to receive(:search_backend).and_return(backend) }
@@ -23,12 +23,18 @@ describe Locomotive::Search::SearchIndexContentEntryJob do
         data:       {
           '_slug'                   => 'my-first-article',
           '_content_type'           => 'articles',
+          '_label'                  => 'My first article',
           'title'                   => 'My first article',
           'short_description'       => '<span>Short description here</span>',
           'description'             => "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>",
           'visible'                 => true,
           'published_at'            => '09/26/2015',
-          'formatted_published_at'  => '09/26/2015'
+          'formatted_published_at'  => '09/26/2015',
+          'author'                  => {
+            '_content_type' => 'authors',
+            '_slug'         => 'john',
+            '_label'        => 'John Doe'
+          }
         }
       ).and_return(true)
       subject

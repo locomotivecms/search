@@ -17,6 +17,10 @@ module Locomotive
         Rails.configuration.x.locomotive_search_backend.enabled_for?(self.site)
       end
 
+      def sanitize_search_content(text)
+        ::ActionController::Base.helpers.strip_tags(text)
+      end
+
     end
   end
 end

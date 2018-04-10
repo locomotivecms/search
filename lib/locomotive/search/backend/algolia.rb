@@ -44,13 +44,13 @@ module Locomotive
           global_index.delete_object(object_id)
         end
 
-        def delete_all_indices
-          client.list_indexes['items'].each do |index|
-            name = index['name']
+        def clear_all_indices
+          client.list_indexes['items'].each do |index_attributes|
+            name = index_attributes['name']
 
             next unless name =~ /^#{self.base_index_name}-/
 
-            self.client.delete_index(name)
+            ::Algolia::Index.new(name, self.client).clear_index
           end
         end
 

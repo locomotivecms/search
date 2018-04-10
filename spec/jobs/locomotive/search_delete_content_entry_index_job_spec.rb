@@ -6,7 +6,7 @@ describe Locomotive::SearchDeleteContentEntryIndexJob do
 
     let(:backend)       { FooEntryBackend.new }
     let(:content_type)  { create(:content_type, :indexed) }
-    let(:entry)         { content_type.entries.create(attributes_for(:content_entry, :with_attributes)) }
+    let(:entry)         { content_type.entries.create(attributes_for(:content_entry, :article_attributes)) }
     let(:locale)        { 'en' }
 
     before { allow(job).to receive(:search_backend).and_return(backend) }

@@ -10,7 +10,7 @@ describe 'Search with Algolia' do
       page = create(:page, site: site)
 
       # then index a couple of content entries
-      content_type.entries.create(attributes_for(:content_entry, :with_attributes))
+      content_type.entries.create(attributes_for(:content_entry, :article_attributes))
       content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...')
       content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows')
 
@@ -32,7 +32,7 @@ describe 'Search with Algolia' do
       page = create(:page, site: site)
 
       # then index a couple of content entries
-      content_type.entries.create(attributes_for(:content_entry, :with_attributes))
+      content_type.entries.create(attributes_for(:content_entry, :article_attributes))
       content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...')
       content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows')
 

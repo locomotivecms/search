@@ -10,7 +10,7 @@ describe Locomotive::Page do
 
     subject { page.content_to_index }
 
-    it 'stripes HTML tags' do
+    it 'stripes HTML tags and removes URLS' do
       is_expected.to eq 'Lorem ipsum - foo - bar Hello world. The search feature is awesome'
     end
 
