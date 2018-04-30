@@ -1,6 +1,7 @@
 .bundle/
 .byebug_history
 .DS_Store
+.env.test
 log/*.log
 pkg/
 spec/dummy/log/*.log

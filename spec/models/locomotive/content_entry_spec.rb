@@ -12,7 +12,7 @@ describe Locomotive::ContentEntry do
     subject { entry.content_to_index }
 
     it 'stripes HTML tags' do
-      is_expected.to eq "My first article Short description here That's good! Click here! 09/26/2015 09/26/2015"
+      is_expected.to eq "Short description here That's good! Click here! 09/26/2015 09/26/2015"
     end
 
   end

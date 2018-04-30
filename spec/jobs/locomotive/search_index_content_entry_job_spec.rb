@@ -18,7 +18,7 @@ describe Locomotive::Search::SearchIndexContentEntryJob do
         type:       'articles',
         object_id:  entry._id.to_s,
         title:      'My first article',
-        content:    "My first article Short description here That's good! Click here! 09/26/2015 09/26/2015",
+        content:    "Short description here That's good! Click here! 09/26/2015 09/26/2015",
         visible:    true,
         data:       {
           '_slug'                   => 'my-first-article',

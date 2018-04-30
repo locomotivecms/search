@@ -26,16 +26,10 @@ module Locomotive
         # - object: locomotive-<Rails env>-<site handle>-<locale>-<type: page or a content type>
         #
         def save_object(type: nil, object_id: nil, title: nil, content: nil, visible: true, data: {})
-          object = {
-            title:      title,
-            type:       type,
-            content:    content,
-            objectID:   object_id,
-            visible:    visible,
-            data:       data
-          }
+          base_object = { objectID: object_id, visible: visible, type: type }
+          object      = { title: title, content: content, data: data }.merge(base_object)
 
-          object_index(type).save_objects([object])
+          object_index(type).save_objects([data.merge(base_object)])
           global_index.save_objects([object])
         end
 
@@ -73,6 +67,7 @@ module Locomotive
         end
 
         def self.enabled_for?(site)
+          site.metafields.present? &&
           site.metafields['algolia'].present? &&
           site.metafields['algolia']['application_id'].present? &&
           site.metafields['algolia']['api_key'].present?

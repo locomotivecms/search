@@ -17,7 +17,6 @@ gem 'turbolinks',             '~> 5'
 gem 'bootsnap',               '>= 1.1.0', require: false
 gem 'sidekiq',                '~> 5.1.3'
 
-
 gem 'custom_fields', path: '../custom_fields' # for Developers
 gem 'locomotivecms', path: '../engine'
 
@@ -25,6 +24,7 @@ group :development, :test do
   gem 'rspec-rails',              '~> 3.7'
   gem 'factory_bot_rails',        '~> 4.8.2'
   gem 'database_cleaner',         '~> 1.6.2'
+  gem 'dotenv-rails',             '~> 2.4.0', require: 'dotenv/rails-now'
 end
 
 # To use a debugger

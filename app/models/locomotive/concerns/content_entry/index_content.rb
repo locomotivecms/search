@@ -8,7 +8,9 @@ module Locomotive
           self.custom_fields_basic_attributes.map do |(name, value)|
             _name = name.gsub(/_id$/, '').gsub(/_url$/, '')
 
-            next unless value.is_a?(String) && !self.file_custom_fields.include?(_name)
+            next if !value.is_a?(String) ||
+              name == _label_field_name.to_s || # no need to index the label (already searchable)
+              self.file_custom_fields.include?(_name)
 
             sanitize_search_content(value)
           end.compact.join(' ')

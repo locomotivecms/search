@@ -27,9 +27,9 @@ class MyApplication < Rails::Application
 end
 ```
 
-For a smooth user experience, any modification to a page or a content entry triggers the indexing of the related content. Behind the scene, we use Rails ActiveJob in order to process it asynchronously. Check out the [ActiveJob documentation](http://guides.rubyonrails.org/active_job_basics.html) to set it up.
+For a smooth user experience, any modification to a page or a content entry will trigger asynchronously the indexing of the related content. Behind the scene, we use Rails ActiveJob in order to process it asynchronously. Check out the [ActiveJob documentation](http://guides.rubyonrails.org/active_job_basics.html) to set it up.
 
-However, if you don't mind about the performance (or for testint purpose), you can "disable" ActiveJob by adding `config.active_job.queue_adapter = :inline` to your application.rb file.
+However, if you don't mind about the performance (or for testing purpose), you can "disable" ActiveJob by adding `config.active_job.queue_adapter = :inline` to your application.rb file.
 
 ## Available backends
 
@@ -64,7 +64,7 @@ Locomotive is an open source project, we encourage contributions. If you have fo
 - Clone the project <code>git clone git@github.com:locomotivecms/search.git</code>
 - Start mongodb if it is not already running
 - Create an Algolia account
-- Set the following env variables based on your Algolia account: ALGOLIA_APPLICATION_ID and ALGOLIA_API_KEY
+- Set the following env variables based on your Algolia account: `ALGOLIA_APPLICATION_ID` and `ALGOLIA_API_KEY` (or add a new file named .env.test at the root of the project)
 - Run the tests <code>bundle exec rspec</code>
 - Write your failing tests
 - Make the tests pass
