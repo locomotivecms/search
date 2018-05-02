@@ -43,6 +43,8 @@ module Locomotive
 
         def unindex_content
           Locomotive::SearchDeleteContentEntryIndexJob.perform_later(
+            self.site_id.to_s,
+            self.content_type.slug,
             self._id.to_s,
             ::Mongoid::Fields::I18n.locale.to_s
           )

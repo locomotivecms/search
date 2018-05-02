@@ -54,7 +54,7 @@ describe Locomotive::Page do
     let!(:page) { create(:page, :indexed) }
 
     it 'performs a job to index the content' do
-      expect(Locomotive::SearchDeletePageIndexJob).to receive(:perform_later).with(page._id.to_s, 'en')
+      expect(Locomotive::SearchDeletePageIndexJob).to receive(:perform_later).with(page.site._id.to_s, page._id.to_s, 'en')
       page.destroy
     end
 

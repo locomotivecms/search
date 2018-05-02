@@ -75,7 +75,7 @@ describe Locomotive::ContentEntry do
     let(:entry) { content_type.entries.create(attributes_for(:content_entry, :article_attributes)) }
 
     it 'performs a job to index the content' do
-      expect(Locomotive::SearchDeleteContentEntryIndexJob).to receive(:perform_later).with(entry._id.to_s, 'en')
+      expect(Locomotive::SearchDeleteContentEntryIndexJob).to receive(:perform_later).with(entry.site._id.to_s, 'articles', entry._id.to_s, 'en')
       entry.destroy
     end
 

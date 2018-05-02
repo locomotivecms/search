@@ -10,10 +10,10 @@ describe Locomotive::SearchDeletePageIndexJob do
 
     before { allow(job).to receive(:search_backend).and_return(backend) }
 
-    subject { job.perform(page._id.to_s, locale) }
+    subject { job.perform(page.site._id.to_s, page._id.to_s, locale) }
 
     it 'calls the Algolia backend' do
-      expect(backend).to receive(:delete_object).with('page', page._id).and_return(true)
+      expect(backend).to receive(:delete_object).with('page', page._id.to_s).and_return(true)
       subject
     end
 

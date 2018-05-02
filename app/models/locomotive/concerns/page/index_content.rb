@@ -37,6 +37,7 @@ module Locomotive
 
           # don't block the server app
           Locomotive::SearchDeletePageIndexJob.perform_later(
+            self.site_id.to_s,
             self._id.to_s,
             ::Mongoid::Fields::I18n.locale.to_s
           )
