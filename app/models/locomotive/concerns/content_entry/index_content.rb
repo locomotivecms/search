@@ -10,6 +10,7 @@ module Locomotive
 
             next if !value.is_a?(String) ||
               name == _label_field_name.to_s || # no need to index the label (already searchable)
+              name.end_with?('_id') || # don't index attributes like youtube_id, ...etc
               self.file_custom_fields.include?(_name)
 
             sanitize_search_content(value)

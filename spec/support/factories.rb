@@ -77,6 +77,7 @@ FactoryBot.define do
       content_type.entries_custom_fields.build label: 'Description', type: 'text'
       content_type.entries_custom_fields.build label: 'Visible ?', type: 'boolean', name: 'visible'
       content_type.entries_custom_fields.build label: 'File', type: 'file'
+      content_type.entries_custom_fields.build label: 'Youtube ID', type: 'string'
       content_type.entries_custom_fields.build label: 'Published at', type: 'date'
       content_type.entries_custom_fields.build label: 'Author', type: 'belongs_to', class_name: related_content_type.entries_class_name
       content_type.valid?
@@ -116,6 +117,7 @@ FactoryBot.define do
       title             'My first article'
       short_description '<span>Short description here</span>'
       description       "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>"
+      youtube_id        "42"
       visible           true
       published_at      Date.parse('2015/09/26')
       author_id         {

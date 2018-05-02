@@ -28,6 +28,7 @@ end
 ```
 
 For a smooth user experience, any modification to a page or a content entry will trigger asynchronously the indexing of the related content. Behind the scene, we use Rails ActiveJob in order to process it asynchronously. Check out the [ActiveJob documentation](http://guides.rubyonrails.org/active_job_basics.html) to set it up.
+If you use Sidekiq or Resque, make sure to add the `search` queue in order for your ActiveJob backend to process the indexing jobs.
 
 However, if you don't mind about the performance (or for testing purpose), you can "disable" ActiveJob by adding `config.active_job.queue_adapter = :inline` to your application.rb file.
 
