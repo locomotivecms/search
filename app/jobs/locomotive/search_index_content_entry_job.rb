@@ -1,5 +1,4 @@
 module Locomotive
-
   class SearchIndexContentEntryJob < BaseSearchJob
 
     def perform(entry_id, locale)
@@ -11,5 +10,4 @@ module Locomotive
     end
 
   end
-
 end

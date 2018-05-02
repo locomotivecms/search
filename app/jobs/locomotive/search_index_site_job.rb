@@ -1,5 +1,4 @@
 module Locomotive
-
   class SearchIndexSiteJob < BaseSearchJob
 
     def perform(site_id)
@@ -27,5 +26,4 @@ module Locomotive
     end
 
   end
-
 end

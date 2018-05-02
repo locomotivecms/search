@@ -1,5 +1,4 @@
 module Locomotive
-
   class BaseSearchJob < ApplicationJob
 
     queue_as :search
@@ -33,5 +32,4 @@ module Locomotive
     end
 
   end
-
 end

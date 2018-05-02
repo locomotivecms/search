@@ -34,7 +34,7 @@ module Locomotive
         end
 
         def delete_object(type, object_id)
-          object_type_index(type).delete_object(object_id)
+          object_index(type).delete_object(object_id)
           global_index.delete_object(object_id)
         end
 

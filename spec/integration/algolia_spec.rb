@@ -18,6 +18,8 @@ describe 'Search with Algolia' do
 
       expect(response['nbHits']).to eq 1
       expect(response['hits'][0]['title']).to eq 'Another world'
+
+      expect { site.destroy }.not_to raise_exception
     end
 
   end
