@@ -14,7 +14,7 @@ module Locomotive
               self.file_custom_fields.include?(_name)
 
             sanitize_search_content(value)
-          end.compact.join(' ')
+          end.compact.join(' ').strip
         end
 
         def data_to_index(parent = false)
