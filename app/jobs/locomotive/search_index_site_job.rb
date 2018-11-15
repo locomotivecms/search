@@ -9,9 +9,9 @@ module Locomotive
 
       # index the content in each locale
       site.each_locale do |locale|
-        # index all the pages (except the 404 one)
-        site.pages.each do |page|
-          next if page.not_found?
+        # index all the pages (except the 404 one and the templatized ones)
+        site.pages.published.each do |page|
+          next if page.not_found? || page.templatized?
           index_page(site, page, locale)
         end
 
