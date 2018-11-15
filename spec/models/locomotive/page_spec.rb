@@ -6,12 +6,15 @@ describe Locomotive::Page do
 
   describe '#content_to_index' do
 
-    let(:page) { build(:page, :indexed) }
+    let(:site)                { create(:site) }
+    let!(:section)            { create(:section, site: site) }
+    let!(:dropzone_section)   { create(:dropzone_section, site: site) }
+    let(:page)                { build(:page, :indexed, site: site) }
 
     subject { page.content_to_index }
 
     it 'stripes HTML tags and removes URLS' do
-      is_expected.to eq 'Lorem ipsum - foo - bar Hello world. The search feature is awesome'
+      is_expected.to eq 'Lorem ipsum - foo - bar Hello world. The search feature is awesome My page title Label #1 Label #2 my block Label of my block my another block Label another block'
     end
 
   end

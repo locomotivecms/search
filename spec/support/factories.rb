@@ -32,6 +32,25 @@ FactoryBot.define do
       page.editable_elements << build(:editable_element_text)
       page.editable_elements << build(:editable_element_file)
       page.editable_elements << build(:editable_element_text, slug: 'ee-3', content: "Hello world. <p>The search <string>feature</string> is awesome</p>")
+
+      page.sections_content = {
+        hero: {
+          settings: { title: 'My page title' },
+          blocks: [{ type: 'simple_block', settings: { label: 'Label #1', active: true } }, { type: 'simple_block', settings: { label: 'Label #2', active: false } }]
+        }
+      }.deep_stringify_keys
+
+      page.sections_dropzone_content = [
+        {
+          type: 'simple',
+          settings: { title: 'my <strong>block</strong>' }, blocks: [{ type: 'simple_block', settings: { label: 'Label of my block', image: 'image.png' } }]
+        }.deep_stringify_keys,
+        {
+          type: 'simple',
+          settings: { title: 'my <i>another</i> block' }, blocks: [{ type: 'simple_block', settings: { label: 'Label another block', image: 'another_image.png' } }]
+        }.deep_stringify_keys
+      ]
+
       page.raw_template = '<html><body>Page goes here</body></html>'
       page.save
     end
@@ -62,8 +81,31 @@ FactoryBot.define do
     disabled false
   end
 
-  factory :content_type, class: Locomotive::ContentType do
+  factory :section, class: Locomotive::Section do
+    name 'Hero'
+    slug 'hero'
+    site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
+    template '--nothing--'
+    definition { {
+      name: 'Hero',
+      settings: [{ type: 'text', name: 'Title', id: 'title' }],
+      blocks: [{ name: 'Simple block', type: 'simple_block', settings: [{ name: 'Label', id: 'label', type: 'text' }, { name: 'Active?', id: 'active', type: 'checkbox' }] }]
+    }.deep_stringify_keys }
+  end
 
+  factory :dropzone_section, class: Locomotive::Section do
+    name 'Simple section'
+    slug 'simple'
+    site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
+    template '--nothing--'
+    definition { {
+      name: 'Simple section',
+      settings: [{ type: 'text', name: 'Title', id: 'title' }],
+      blocks: [{ name: 'Simple block', type: 'simple_block', settings: [{ name: 'Label', id: 'label', type: 'text' }, { name: 'Image', id: 'image', type: 'image_picker' }] }]
+    }.deep_stringify_keys }
+  end
+
+  factory :content_type, class: Locomotive::ContentType do
     name 'My articles'
     slug 'articles'
     description 'The list of my articles'
@@ -78,6 +120,7 @@ FactoryBot.define do
       content_type.entries_custom_fields.build label: 'Visible ?', type: 'boolean', name: 'visible'
       content_type.entries_custom_fields.build label: 'File', type: 'file'
       content_type.entries_custom_fields.build label: 'Youtube ID', type: 'string'
+      content_type.entries_custom_fields.build label: 'URL', type: 'string'
       content_type.entries_custom_fields.build label: 'Published at', type: 'date'
       content_type.entries_custom_fields.build label: 'Author', type: 'belongs_to', class_name: related_content_type.entries_class_name
       content_type.valid?
@@ -117,7 +160,8 @@ FactoryBot.define do
       title             'My first article'
       short_description '<span>Short description here</span>'
       description       "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>"
-      youtube_id        "42"
+      youtube_id        '42'
+      url               'https://www.google.fr'
       visible           true
       published_at      Date.parse('2015/09/26')
       author_id         {

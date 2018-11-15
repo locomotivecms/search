@@ -6,7 +6,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails',                  '~> 5.1.5'
 gem 'passenger',              '~> 5.2.1'
 gem 'mongoid',                '~> 6.4.0'
 gem 'devise',                 '~> 4.4.3'
@@ -19,6 +18,8 @@ gem 'sidekiq',                '~> 5.1.3'
 
 gem 'custom_fields', path: '../custom_fields' # for Developers
 gem 'locomotivecms', path: '../engine'
+gem 'locomotivecms_steam', path: '../steam'
+gem 'locomotivecms_common', path: '../common'
 
 group :development, :test do
   gem 'rspec-rails',              '~> 3.7'

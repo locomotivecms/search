@@ -28,6 +28,7 @@ describe Locomotive::Search::SearchIndexContentEntryJob do
           'short_description'       => '<span>Short description here</span>',
           'description'             => "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>",
           'youtube_id'              => '42',
+          'url'                     => 'https://www.google.fr',
           'visible'                 => true,
           'published_at'            => '09/26/2015',
           'formatted_published_at'  => '09/26/2015',
