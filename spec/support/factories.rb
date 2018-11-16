@@ -179,7 +179,7 @@ FactoryBot.define do
       _slug     'john'
       name      'John Doe'
       bio       'Born in 1979'
-      _visible  true
+      visible   true
     end
 
   end

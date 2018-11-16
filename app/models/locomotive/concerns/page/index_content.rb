@@ -32,7 +32,7 @@ module Locomotive
 
         def index_content
           # don't index the 404 error page and the templatized page
-          return if self.not_found? || self.templatized?
+          return if self.not_found? || self.templatized? || self.redirect?
 
           # don't block the server app
           Locomotive::SearchIndexPageJob.perform_later(
