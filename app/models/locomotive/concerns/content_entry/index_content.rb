@@ -36,6 +36,9 @@ module Locomotive
         private
 
         def index_content
+          # don't index an unpublished entry
+          return unless self.visible?
+
           Locomotive::SearchIndexContentEntryJob.perform_later(
             self._id.to_s,
             ::Mongoid::Fields::I18n.locale.to_s

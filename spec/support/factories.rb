@@ -176,9 +176,10 @@ FactoryBot.define do
     end
 
     trait :author_attributes do
-      _slug 'john'
-      name  'John Doe'
-      bio   'Born in 1979'
+      _slug     'john'
+      name      'John Doe'
+      bio       'Born in 1979'
+      _visible  true
     end
 
   end

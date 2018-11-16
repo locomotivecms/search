@@ -11,8 +11,8 @@ describe 'Search with Algolia' do
 
       # then index a couple of content entries
       content_type.entries.create(attributes_for(:content_entry, :article_attributes))
-      content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...')
-      content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows')
+      content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...', visible: true)
+      content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows', visible: true)
 
       response = ask_algolia('aic', 'knows')
 
@@ -35,8 +35,8 @@ describe 'Search with Algolia' do
 
       # then index a couple of content entries
       content_type.entries.create(attributes_for(:content_entry, :article_attributes))
-      content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...')
-      content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows')
+      content_type.entries.create(title: 'Hello world', short_description: 'Hard to find', description: 'Lorem ipsum...', visible: true)
+      content_type.entries.create(title: 'Another world', short_description: 'Something in the way', description: 'No one knows', visible: true)
 
       # at this point, Algolia was not involved
       site.metafields = { 'algolia' => { 'application_id' => ENV['ALGOLIA_APPLICATION_ID'], 'api_key' => ENV['ALGOLIA_API_KEY'], 'reset' => true } }
@@ -57,16 +57,18 @@ describe 'Search with Algolia' do
     retries   = 0
 
     # Wait for Algolia to create indices and index content
-    while response.nil? do
+    while response.nil? && retries < 5 do
       begin
         response = index.search('knows')
-        response = nil if response['nbHits'] == 0
+        raise 'no results' if response['nbHits'] == 0
       rescue Exception => e
+        response = nil
         retries += 1
-        raise "Unable to query Algolia, message: #{e.message}" if retries > 5
         sleep(1) # next try in one second
       end
     end
+
+    raise "Unable to query Algolia, message: #{e.message}" if retries >= 5 && response.nil?
 
     response
   end

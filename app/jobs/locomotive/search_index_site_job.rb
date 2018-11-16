@@ -17,7 +17,7 @@ module Locomotive
 
         # index all the content entries
         site.content_types.each do |content_type|
-          content_type.entries.each do |entry|
+          content_type.entries.visible.each do |entry|
             index_content_entry(site, entry, locale)
           end
         end
