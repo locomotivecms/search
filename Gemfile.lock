@@ -353,7 +353,7 @@ GEM
       nokogiri (~> 1.8, >= 1.8.4)
     origin (2.3.1)
     orm_adapter (0.5.0)
-    passenger (5.2.3)
+    passenger (6.0.14)
       rack
       rake (>= 0.8.1)
     pony (1.13.1)
@@ -363,7 +363,7 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     racc (1.5.2)
-    rack (2.1.4)
+    rack (2.1.4.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cache (1.7.2)
@@ -497,7 +497,7 @@ DEPENDENCIES
   locomotivecms (>= 4.1.0.rc1)
   locomotivecms_search!
   mongoid (~> 6.4.0)
-  passenger (~> 5.2.1)
+  passenger (~> 6.0.14)
   rspec-rails (~> 3.7)
   sass-rails (~> 5.0)
   sidekiq (~> 5.1.3)
