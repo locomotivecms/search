@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'passenger',              '~> 5.2.1'
+gem 'passenger',              '~> 6.0.14'
 gem 'mongoid',                '~> 6.4.0'
 gem 'devise',                 '~> 4.7.3'
 gem 'sass-rails',             '~> 5.0'
