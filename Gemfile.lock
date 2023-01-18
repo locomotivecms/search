@@ -363,7 +363,7 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     racc (1.5.2)
-    rack (2.1.4)
+    rack (2.1.4.2)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cache (1.7.2)
