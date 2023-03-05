@@ -12,7 +12,7 @@ module Locomotive
 
           if site.metafields[backend_name]
             credentials = site.metafields[backend_name].slice('application_id', 'api_key').symbolize_keys
-            self.client = backend_client_klass.new(credentials)
+            self.client = build_client(**credentials)
           end
         end
 
@@ -43,13 +43,13 @@ module Locomotive
           base_object = { objectID: object_id, visible: visible, type: type }
           object      = { title: title, content: content, data: data }.merge(base_object)
 
-          object_index(type).save_objects([data.merge(base_object)])
-          global_index.save_objects([object])
+          index_objects(object_index(type), [data.merge(base_object)])
+          index_objects(global_index, [object])
         end
 
         def delete_object(type, object_id)
-          object_index(type).delete_object(object_id)
-          global_index.delete_object(object_id)
+          delete_object(object_index(type), object_id)
+          delete_object(global_index, object_id)
         end
 
         def valid?
@@ -58,16 +58,6 @@ module Locomotive
 
         def base_index_name
           ['locomotive', Rails.env, self.site.handle].join('-')
-        end
-
-        def clear_all_indices
-          client.list_indexes['items'].each do |index_attributes|
-            name = index_attributes['name']
-
-            next unless name =~ /^#{self.base_index_name}-/
-
-            index_for(name, self.client).clear_index
-          end
         end
 
         def global_index

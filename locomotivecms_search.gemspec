@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails',           '>= 5.1.6', '< 6'
-  s.add_dependency 'algoliasearch',   '~> 1.27.5'
+  s.add_dependency 'rails',     '>= 6', '< 7.2'
+  s.add_dependency 'algolia',   '~> 2.3.1'
 end

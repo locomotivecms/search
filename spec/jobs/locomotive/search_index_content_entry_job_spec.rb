@@ -1,4 +1,4 @@
-describe Locomotive::Search::SearchIndexContentEntryJob do
+describe Locomotive::SearchIndexContentEntryJob do
 
   let(:job) { described_class.new }
 

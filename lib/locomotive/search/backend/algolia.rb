@@ -1,4 +1,4 @@
-require 'algoliasearch'
+require 'algolia'
 
 module Locomotive
   module Search
@@ -10,15 +10,31 @@ module Locomotive
           'algolia'
         end
 
-        def self.backend_client_klass
-          ::Algolia::Client
+        def build_client(application_id:, api_key:)
+          ::Algolia::Search::Client.create(application_id, api_key)
         end
 
         def index_for(index_name, client)
-          ::Algolia::Index.new(index_name, client)
+          client.init_index(index_name)
         end
 
+        def index_objects(index, objects)
+          index.save_objects(objects).wait
+        end
 
+        def delete_object(index, object_id)
+          index.delete_object(object_id).wait
+        end
+
+        def clear_all_indices
+          client.list_indexes[:items].each do |index_attributes|
+            name = index_attributes[:name]
+
+            next unless name =~ /^#{self.base_index_name}-/
+
+            index_for(name, self.client).delete
+          end
+        end
       end
 
     end

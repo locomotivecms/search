@@ -1,9 +1,9 @@
 FactoryBot.define do
 
   factory :site, class: 'Locomotive::Site' do
-    name            'Acme Website'
-    handle          'acme'
-    created_at      Time.now
+    name { 'Acme Website' }
+    handle { 'acme' }
+    created_at { Time.now }
 
     trait :algolia do
       metafields { { 'algolia' => { 'application_id' => ENV['ALGOLIA_APPLICATION_ID'], 'api_key' => ENV['ALGOLIA_API_KEY'] } } }
@@ -16,16 +16,16 @@ FactoryBot.define do
   end
 
   factory :account, class: 'Locomotive::Account' do
-    name                    'Joe MacMillan'
-    email                   'joe@cardiff-electric.com'
-    password                'easyone'
-    password_confirmation   'easyone'
+    name { 'Joe MacMillan' }
+    email { 'joe@cardiff-electric.com' }
+    password { 'easyone' }
+    password_confirmation { 'easyone' }
   end
 
   factory :page, class: 'Locomotive::Page' do
-    title 'A simple page'
-    slug 'simple'
-    published true
+    title { 'A simple page' }
+    slug { 'simple' }
+    published { true }
     site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
 
     after(:build) do |page, _|
@@ -60,32 +60,32 @@ FactoryBot.define do
     end
 
     trait :page_not_found do
-      slug '404'
+      slug { '404' }
     end
   end
 
   factory :editable_element_text, class: Locomotive::EditableText do
-    slug 'ee-1'
-    block 'main'
-    hint 'hint'
-    content 'Lorem ipsum - foo - <a href="#">bar</a>'
-    priority 0
-    disabled false
+    slug { 'ee-1' }
+    block { 'main' }
+    hint { 'hint' }
+    content { 'Lorem ipsum - foo - <a href="#">bar</a>' }
+    priority { 0 }
+    disabled { false }
   end
 
   factory :editable_element_file, class: Locomotive::EditableFile do
-    slug 'ee-2'
-    block 'main'
-    hint 'hint'
-    priority 0
-    disabled false
+    slug { 'ee-2' }
+    block { 'main' }
+    hint { 'hint' }
+    priority { 0 }
+    disabled { false }
   end
 
   factory :section, class: Locomotive::Section do
-    name 'Hero'
-    slug 'hero'
+    name { 'Hero' }
+    slug { 'hero' }
     site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
-    template '--nothing--'
+    template { '--nothing--' }
     definition { {
       name: 'Hero',
       settings: [{ type: 'text', name: 'Title', id: 'title' }],
@@ -94,10 +94,10 @@ FactoryBot.define do
   end
 
   factory :dropzone_section, class: Locomotive::Section do
-    name 'Simple section'
-    slug 'simple'
+    name { 'Simple section' }
+    slug { 'simple' }
     site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
-    template '--nothing--'
+    template { '--nothing--' }
     definition { {
       name: 'Simple section',
       settings: [{ type: 'text', name: 'Title', id: 'title' }],
@@ -106,9 +106,9 @@ FactoryBot.define do
   end
 
   factory :content_type, class: Locomotive::ContentType do
-    name 'My articles'
-    slug 'articles'
-    description 'The list of my articles'
+    name { 'My articles' }
+    slug { 'articles' }
+    description { 'The list of my articles' }
     site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
 
     after(:build) do |content_type, _|
@@ -134,10 +134,9 @@ FactoryBot.define do
   end
 
   factory :related_content_type, class: Locomotive::ContentType do
-
-    name 'Authors'
-    slug 'authors'
-    description 'The list of my authors'
+    name { 'Authors' }
+    slug { 'authors' }
+    description { 'The list of my authors' }
     site { Locomotive::Site.where(handle: 'acme').first || create(:site) }
 
     after(:build) do |content_type, _|
@@ -156,15 +155,15 @@ FactoryBot.define do
   factory :content_entry, class: Locomotive::ContentEntry do
 
     trait :article_attributes do
-      _slug             'my-first-article'
-      title             'My first article'
-      short_description '<span>Short description here</span>'
-      description       "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>"
-      youtube_id        '42'
-      url               'https://www.google.fr'
-      visible           true
-      published_at      Date.parse('2015/09/26')
-      author_id         {
+      _slug { 'my-first-article' }
+      title { 'My first article' }
+      short_description { '<span>Short description here</span>' }
+      description { "<p>That's <strong>good!</strong> <a href='#'>Click here!</a></p>" }
+      youtube_id { '42' }
+      url { 'https://www.google.fr' }
+      visible { true }
+      published_at { Date.parse('2015/09/26') }
+      author_id {
         author_type = Locomotive::ContentType.where(slug: 'authors').first
         author = author_type.entries.create(attributes_for(:content_entry, :author_attributes))
         author._id
@@ -172,14 +171,14 @@ FactoryBot.define do
     end
 
     trait :with_file do
-      file File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'apple.png'))
+      file { File.open(File.join(File.dirname(__FILE__), '..', 'fixtures', 'apple.png')) }
     end
 
     trait :author_attributes do
-      _slug     'john'
-      name      'John Doe'
-      bio       'Born in 1979'
-      visible   true
+      _slug { 'john' }
+      name { 'John Doe' }
+      bio { 'Born in 1979' }
+      visible { true }
     end
 
   end

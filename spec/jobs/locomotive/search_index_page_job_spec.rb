@@ -1,4 +1,4 @@
-describe Locomotive::Search::SearchIndexPageJob do
+describe Locomotive::SearchIndexPageJob do
 
   let(:job) { described_class.new }
 

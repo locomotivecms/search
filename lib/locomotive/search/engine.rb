@@ -11,8 +11,8 @@ module Locomotive
       # Allow the pkugin to change the behavior of Locomotive controllers and
       # models in a clean way.
       config.to_prepare do
-        Dir.glob(Engine.root + 'app/decorators/**/*_decorator*.rb').each do |c|
-          require_dependency(c)
+        Dir.glob(Engine.root + 'app/decorators/**/*_decorator*.rb').each do |decorator|
+          load decorator
         end
       end
 

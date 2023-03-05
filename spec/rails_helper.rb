@@ -8,7 +8,8 @@ require 'rspec/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'rails/mongoid'
-require 'byebug'
+
+ActiveJob::Base.queue_adapter = :test
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -27,6 +28,8 @@ require 'byebug'
 Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include ActiveJob::TestHelper
+  
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -50,8 +53,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.orm = 'mongoid'
+    DatabaseCleaner.clean
     AlgoliaCleaner.delete_indices
   end
 
@@ -61,6 +63,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    DatabaseCleaner.clean!
+    DatabaseCleaner.clean
   end
 end
