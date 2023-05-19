@@ -8,7 +8,11 @@ module Locomotive
         end
       end
 
-      # Allow the pkugin to change the behavior of Locomotive controllers and
+      initializer 'locomotive.search.zeitwerk' do
+        ActiveSupport::Dependencies.autoload_paths.delete("#{Engine.root}/app/decorators")
+      end
+      
+      # Allow the plugin to change the behavior of Locomotive controllers and
       # models in a clean way.
       config.to_prepare do
         Dir.glob(Engine.root + 'app/decorators/**/*_decorator*.rb').each do |decorator|
